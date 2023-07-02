@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using TicketApplication.Data;
+using TicketApplication.Data.Data;
+using TicketApplication.Data.Repository.Imp;
+using TicketApplication.Data.Repository.IRepository;
+using TicketApplication.Models;
+using TicketApplication.Models.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IRepository<Movie>, MoviesRepository>();
 
 var app = builder.Build();
 

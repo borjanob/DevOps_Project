@@ -2,8 +2,9 @@
 using System.Diagnostics;
 using TicketApplication.Models;
 
-namespace TicketApplication.Controllers
+namespace TicketApplication.Areas.Customer.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
