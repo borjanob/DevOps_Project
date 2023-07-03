@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TicketApplication.Data.Repository.IRepository;
 using TicketApplication.Models;
+using TicketApplication.Models.Models;
 
 namespace TicketApplication.Areas.Customer.Controllers
 {
@@ -8,15 +10,23 @@ namespace TicketApplication.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IRepository<Movie> _movieRepository;
+        public HomeController(ILogger<HomeController> logger, IRepository<Movie> repository)
         {
             _logger = logger;
+            _movieRepository = repository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Movie> movies = _movieRepository.GetAll();
+            return View(movies);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            Movie movie = _movieRepository.Get(x => x.Id == id);
+            return View(movie);
         }
 
         public IActionResult Privacy()

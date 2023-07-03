@@ -12,11 +12,14 @@ namespace TicketApplication.Areas.Customer.Controllers
     {
         private IRepository<Movie> _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public MovieController(IRepository<Movie> repository, IUnitOfWork unitOfWork)
+        public MovieController(IRepository<Movie> repository, IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
+
         }
 
         public IActionResult Index()
@@ -26,7 +29,7 @@ namespace TicketApplication.Areas.Customer.Controllers
             return View(movies);
         }
 
-        public IActionResult Upsert(int? id)
+        public IActionResult Create()
         {
             IEnumerable<SelectListItem> CategoryList = _unitOfWork.CategoryRepository.GetAll().Select(x => new SelectListItem
             {
@@ -36,34 +39,12 @@ namespace TicketApplication.Areas.Customer.Controllers
 
             ViewBag.CategoryList = CategoryList;
             //ViewData["CategoryList"] = CategoryList;
-
-            /* MovieVM movieVM = new()
-             {
-                 CategoryList = _unitOfWork.CategoryRepository.GetAll().Select(x => new SelectListItem
-                 {
-                     Text = x.Name,
-                     Value = x.Id.ToString()
-                 }),
-                 Movie = new Movie()
-         };*/
-
             //CREATE
-            if (id == null || id==0)
-            {
-                return View();
-            }
-
-            //UPDATE
-            else
-            {
-                Movie? ToEdit = _repository.Get(x => x.Id == id);
-                return View(ToEdit);
-            }
-
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Upsert(Movie obj, IFormFile? file)
+        public IActionResult Create(Movie obj, IFormFile? file)
         {
             if(obj == null) {
                 return NotFound();
@@ -71,6 +52,20 @@ namespace TicketApplication.Areas.Customer.Controllers
 
             if(ModelState.IsValid)
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\movie");
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    obj.ImageUrl = @"\images\movie\" + fileName;
+                }
+
                 _repository.Add(obj);
                 _repository.Save();
                 TempData["sucess"] = "Movie was added!";
@@ -79,18 +74,27 @@ namespace TicketApplication.Areas.Customer.Controllers
             return View();
         }
 
-      /*  public IActionResult Edit(int? Id)
+        public IActionResult Edit(int? Id)
         {
-            Movie? ToEdit  = _repository.Get(x =>x.Id == Id);
+
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.CategoryRepository.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+
+            ViewBag.CategoryList = CategoryList;
+
+            Movie? ToEdit = _repository.Get(x => x.Id == Id);
             if (ToEdit == null)
-            { 
+            {
                 return NotFound();
             }
             return View(ToEdit);
         }
 
         [HttpPost]
-        public IActionResult Edit(Movie obj)
+        public IActionResult Edit(Movie obj, IFormFile? file)
         {
             if (obj == null)
             {
@@ -99,13 +103,39 @@ namespace TicketApplication.Areas.Customer.Controllers
 
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\movie");
+
+                    if(!string.IsNullOrEmpty(obj.ImageUrl)) 
+                    { 
+                     //delete old image
+                        
+                        var oldImagePath = Path.Combine(wwwRootPath,obj.ImageUrl.TrimStart('\\'));
+
+                        if(System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    obj.ImageUrl = @"\images\movie\" + fileName;
+                }
+
                 _repository.Update(obj);
                 _repository.Save();
                 TempData["sucess"] = "Movie was updated!";
                 return RedirectToAction("Index");
             }
             return View(obj.Id);
-        }*/
+        }
 
         public IActionResult Delete(int? Id)
         {
@@ -125,13 +155,44 @@ namespace TicketApplication.Areas.Customer.Controllers
             {
                 return NotFound();
             }
-                _repository.Remove(obj);
-                _repository.Save();
-                TempData["sucess"] = "Movie was removed!";
-                return RedirectToAction("Index");
+            _repository.Remove(obj);
+            _repository.Save();
+            TempData["sucess"] = "Movie was removed!";
+            return RedirectToAction("Index");
 
         }
 
+        // API REGION
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Movie> movies = _repository.GetAll().ToList();
+            return Json(new { data = movies});
+        }
 
+
+        
+        public IActionResult DeleteApi(int? id) {
+            var toDelete = _repository.Get(x => id == x.Id);
+
+            if(toDelete == null)
+            {
+                return NotFound();
+            }
+
+            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath,
+                toDelete.ImageUrl.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+
+            _repository.Remove(toDelete);
+            _repository.Save();
+
+            List<Movie> movies = _repository.GetAll().ToList();
+            return Json(new { sucess = "true", message = "Delete successful!" });
+        }
     }
 }

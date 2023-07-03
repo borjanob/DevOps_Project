@@ -36,7 +36,6 @@ namespace TicketApplication.Models.Models
         [ValidateNever]
         public Category Category { get; set; }
 
-        [Required]
         [ValidateNever]
         public string ImageUrl { get; set; }
     }

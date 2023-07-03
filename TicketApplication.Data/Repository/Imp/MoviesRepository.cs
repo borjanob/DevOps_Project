@@ -29,14 +29,14 @@ namespace TicketApplication.Data.Repository.Imp
 
         public Movie Get(Expression<Func<Movie, bool>> filter)
         {
-            IQueryable<Movie> query = dbSet;
+            IQueryable<Movie> query = dbSet.Include(x => x.Category);
             query = query.Where(filter);
             return query.FirstOrDefault();
         }
 
         public IEnumerable<Movie> GetAll()
         {
-            IQueryable<Movie> query = dbSet;
+            IQueryable<Movie> query = dbSet.Include(x => x.Category);
             return query.ToList();
         }
 
