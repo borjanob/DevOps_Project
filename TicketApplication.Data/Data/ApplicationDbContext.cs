@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TicketApplication.Models;
 using TicketApplication.Models.Models;
+using TicketApplication.Models.Relationship;
 
 namespace TicketApplication.Data.Data
 {
@@ -21,6 +22,10 @@ namespace TicketApplication.Data.Data
         public DbSet<MovieShowing> movieShowings { get; set; }
 
         public DbSet<CinemaHall> cinemaHalls { get; set; }
+
+        public DbSet<ShoppingCart> shoppingCarts { get; set; }
+
+        public DbSet<ShowingInShoppingCart> showingsInShoppingCart { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

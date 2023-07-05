@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketApplication.Models.Relationship;
 
 namespace TicketApplication.Models.Models
 {
@@ -16,9 +17,7 @@ namespace TicketApplication.Models.Models
 
         public int MovieShowingId { get; set; }
 
-        [ForeignKey("MovieShowingId")]
-        [ValidateNever]
-        public  MovieShowing MovieShowing{ get; set; }
+        public ICollection<ShowingInShoppingCart> showingsInShoppingCarts { get; set; }
 
         public int NumberOfTickets { get; set; }    
 
@@ -27,5 +26,7 @@ namespace TicketApplication.Models.Models
         [ForeignKey("UserId")]
         [ValidateNever]
         public ApplicationUser User { get; set; }
+
+        public int totalSum { get; set; }
     }
 }

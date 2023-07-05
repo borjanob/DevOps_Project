@@ -34,6 +34,7 @@ namespace TicketApplication.Data.Repository.Imp
         public MovieShowing Get(Expression<Func<MovieShowing, bool>> filter)
         {
             IQueryable<MovieShowing> query = dbSet.Include(x => x.Movie)
+                .Include(x=> x.Movie.Category)
                 .Include(x => x.CinemaHall);
             query = query.Where(filter);
             return query.FirstOrDefault();

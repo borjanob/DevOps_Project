@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketApplication.Data.Data;
 
@@ -11,9 +12,11 @@ using TicketApplication.Data.Data;
 namespace TicketApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230705210346_addShoppingCart")]
+    partial class addShoppingCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,40 +412,13 @@ namespace TicketApplication.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("totalSum")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("shoppingCarts");
-                });
-
-            modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInShoppingCart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MovieShowingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShoppingCartId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MovieShowingId");
 
-                    b.HasIndex("ShoppingCartId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("showingsInShoppingCart");
+                    b.ToTable("shoppingCarts");
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.ApplicationUser", b =>
@@ -538,37 +514,21 @@ namespace TicketApplication.Data.Migrations
 
             modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("TicketApplication.Models.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInShoppingCart", b =>
-                {
                     b.HasOne("TicketApplication.Models.Models.MovieShowing", "MovieShowing")
                         .WithMany()
                         .HasForeignKey("MovieShowingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TicketApplication.Models.Models.ShoppingCart", "ShoppingCart")
-                        .WithMany("showingsInShoppingCarts")
-                        .HasForeignKey("ShoppingCartId")
+                    b.HasOne("TicketApplication.Models.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MovieShowing");
 
-                    b.Navigation("ShoppingCart");
-                });
-
-            modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
-                {
-                    b.Navigation("showingsInShoppingCarts");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

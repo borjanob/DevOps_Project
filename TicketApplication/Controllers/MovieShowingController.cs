@@ -138,5 +138,11 @@ namespace TicketApplication.Controllers
             return RedirectToAction("Index");
 
         }
+
+
+        public IActionResult AddToCard(int id)
+        { 
+            return View();
+        }
     }
 }

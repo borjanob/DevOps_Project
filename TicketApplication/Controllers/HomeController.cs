@@ -3,6 +3,7 @@ using System.Diagnostics;
 using TicketApplication.Data.Repository.IRepository;
 using TicketApplication.Models;
 using TicketApplication.Models.Models;
+using TicketApplication.Services.Interface;
 
 namespace TicketApplication.Areas.Customer.Controllers
 {
@@ -11,22 +12,24 @@ namespace TicketApplication.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IRepository<Movie> _movieRepository;
-        public HomeController(ILogger<HomeController> logger, IRepository<Movie> repository)
+        private readonly IMovieShowingService _movieShowingService;
+        public HomeController(ILogger<HomeController> logger, IRepository<Movie> repository, IMovieShowingService movieShowingService)
         {
             _logger = logger;
             _movieRepository = repository;
+            _movieShowingService = movieShowingService;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Movie> movies = _movieRepository.GetAll();
-            return View(movies);
+            IEnumerable<MovieShowing> movieShowings = _movieShowingService.GetAll();
+            return View(movieShowings);
         }
 
         public IActionResult Details(int? id)
         {
-            Movie movie = _movieRepository.Get(x => x.Id == id);
-            return View(movie);
+            MovieShowing movieShowing = _movieShowingService.Get(x => x.Id == id);
+            return View(movieShowing);
         }
 
         public IActionResult Privacy()
