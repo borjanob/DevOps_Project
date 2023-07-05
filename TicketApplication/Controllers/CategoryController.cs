@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TicketApplication.Data.Repository.IRepository;
 using TicketApplication.Models;
+using TicketApplication.Utility;
 
 namespace TicketApplication.Areas.Admin.Controllers
 {
+
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
 
