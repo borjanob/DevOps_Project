@@ -17,6 +17,11 @@ namespace TicketApplication.Data.Data
         public DbSet<Movie> Movies { get; set; }
 
         public DbSet<ApplicationUser> applicationUsers { get;set; }
+
+        public DbSet<MovieShowing> movieShowings { get; set; }
+
+        public DbSet<CinemaHall> cinemaHalls { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TicketApplication.Data\TicketApplication.Data.csproj" />
     <ProjectReference Include="..\TicketApplication.Models\TicketApplication.Models.csproj" />
+    <ProjectReference Include="..\TicketApplication.Services\TicketApplication.Services.csproj" />
     <ProjectReference Include="..\TicketApplication.Utility\TicketApplication.Utility.csproj" />
   </ItemGroup>
 

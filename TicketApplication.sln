@@ -5,11 +5,13 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketApplication", "TicketApplication\TicketApplication.csproj", "{D46376E8-BCF4-4ECC-82B4-0EC4702A2510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketApplication.Data", "TicketApplication.Data\TicketApplication.Data.csproj", "{95E4CB24-3401-4BD3-9BD3-297DA79D1AB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketApplication.Data", "TicketApplication.Data\TicketApplication.Data.csproj", "{95E4CB24-3401-4BD3-9BD3-297DA79D1AB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketApplication.Models", "TicketApplication.Models\TicketApplication.Models.csproj", "{0F5221C5-63A2-49C1-8974-BF2A3E231935}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketApplication.Models", "TicketApplication.Models\TicketApplication.Models.csproj", "{0F5221C5-63A2-49C1-8974-BF2A3E231935}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketApplication.Utility", "TicketApplication.Utility\TicketApplication.Utility.csproj", "{8FE32D93-FFD0-49F3-807C-C3A86BCD9670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketApplication.Utility", "TicketApplication.Utility\TicketApplication.Utility.csproj", "{8FE32D93-FFD0-49F3-807C-C3A86BCD9670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketApplication.Services", "TicketApplication.Services\TicketApplication.Services.csproj", "{FF2228CC-7CF0-4A13-AF22-300C4FF46600}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8FE32D93-FFD0-49F3-807C-C3A86BCD9670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FE32D93-FFD0-49F3-807C-C3A86BCD9670}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FE32D93-FFD0-49F3-807C-C3A86BCD9670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2228CC-7CF0-4A13-AF22-300C4FF46600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2228CC-7CF0-4A13-AF22-300C4FF46600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2228CC-7CF0-4A13-AF22-300C4FF46600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2228CC-7CF0-4A13-AF22-300C4FF46600}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

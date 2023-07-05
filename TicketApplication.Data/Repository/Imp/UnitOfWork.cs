@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketApplication.Data.Data;
 using TicketApplication.Data.Repository.IRepository;
-
 namespace TicketApplication.Data.Repository.Imp
 {
     public class UnitOfWork : IUnitOfWork
