@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language.Intermediate;
+using System.Security.Claims;
 using TicketApplication.Models.Models;
 using TicketApplication.Models.Relationship;
 using TicketApplication.Services.Interface;
@@ -38,9 +41,23 @@ namespace TicketApplication.Controllers
         }
 
         [HttpPost,ActionName("AddToCart")]
+        [Authorize]
         public IActionResult AddToCartPost(ShowingInShoppingCart showingInShoppingCart)
         {
 
+            if (ModelState.IsValid)
+            {
+                MovieShowing movieShowing = _movieShowingService.Get(x => x.Id == showingInShoppingCart.MovieShowingId);
+
+                int number_of_tickets = showingInShoppingCart.Quantity;
+
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
+                _shoppingCartService.AddMovieShowingToShoppingCart(userId,movieShowing, number_of_tickets);
+
+                return RedirectToAction("/Home");
+            }
 
             return View(showingInShoppingCart);
         }
