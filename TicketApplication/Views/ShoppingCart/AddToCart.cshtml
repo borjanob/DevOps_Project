@@ -1,0 +1,23 @@
+﻿@using TicketApplication.Models.Relationship;
+@model ShowingInShoppingCart
+
+<form method="post">
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <h2>Add @Model.MovieShowing.Movie.Name to cart</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <label>Select number of tickets</label>
+            <input type="number" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <button class="btn btn-primary" type="submit">Add to cart</button>
+        </div>
+    </div>
+</div>
+</form>

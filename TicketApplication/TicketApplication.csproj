@@ -32,6 +32,7 @@
     <Folder Include="Areas\Customer\" />
     <Folder Include="Areas\Identity\Data\" />
     <Folder Include="wwwroot\images\movie\" />
+    <Folder Include="wwwroot\seed_images\" />
   </ItemGroup>
 
 </Project>

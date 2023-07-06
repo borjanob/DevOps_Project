@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TicketApplication.Data.Data;
 using TicketApplication.Data.Repository.Imp;
-using TicketApplication.Models;
 using TicketApplication.Models.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -9,6 +8,7 @@ using TicketApplication.Utility;
 using TicketApplication.Data.Repository.IRepository;
 using TicketApplication.Services.Interface;
 using TicketApplication.Services.Impl;
+using TicketApplication.Models.Relationship;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +25,11 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRepository<Movie>, MoviesRepository>();
 builder.Services.AddScoped<IRepository<CinemaHall>, CinemaHallRepository>();
 builder.Services.AddScoped<IRepository<MovieShowing>, MovieShowingRepository>();
+builder.Services.AddScoped<IRepository<ShoppingCart>, ShoppingCartRepository>();
+builder.Services.AddScoped<IRepository<ShowingInShoppingCart>, ShowingInShoppingCartRepository>();
 builder.Services.AddScoped<IMovieShowingService, MovieShowingService>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 

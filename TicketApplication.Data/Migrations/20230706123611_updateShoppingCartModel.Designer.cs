@@ -12,8 +12,8 @@ using TicketApplication.Data.Data;
 namespace TicketApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230705215203_addTotalSumToCart")]
-    partial class addTotalSumToCart
+    [Migration("20230706123611_updateShoppingCartModel")]
+    partial class updateShoppingCartModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -268,6 +268,18 @@ namespace TicketApplication.Data.Migrations
                             Id = 3,
                             DisplayOrder = 3,
                             Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DisplayOrder = 4,
+                            Name = "Drama"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DisplayOrder = 5,
+                            Name = "Animated"
                         });
                 });
 
@@ -332,36 +344,14 @@ namespace TicketApplication.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 10,
-                            CategoryId = 4,
-                            Description = "First Movie",
-                            Duration = 100,
-                            ImageUrl = "",
-                            Name = "Movie 15",
-                            ReleaseYear = 2010,
-                            TicketPrice = 50.0
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CategoryId = 4,
-                            Description = "Second Movie",
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.",
                             Duration = 120,
-                            ImageUrl = "",
-                            Name = "Movie 25",
-                            ReleaseYear = 2000,
-                            TicketPrice = 70.0
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CategoryId = 4,
-                            Description = "Third Movie",
-                            Duration = 80,
-                            ImageUrl = "",
-                            Name = "Movie 35",
-                            ReleaseYear = 2001,
-                            TicketPrice = 10.0
+                            ImageUrl = "C:\\Users\\pc\\source\\repos\\TicketApplication\\TicketApplication\\wwwroot\\seed_images\\indiana_jones.jpg",
+                            Name = "Indiana Jones and the Dial of Destiny",
+                            ReleaseYear = 2023,
+                            TicketPrice = 15.0
                         });
                 });
 
@@ -401,12 +391,6 @@ namespace TicketApplication.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MovieShowingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfTickets")
-                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()

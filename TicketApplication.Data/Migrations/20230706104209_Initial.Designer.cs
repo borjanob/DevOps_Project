@@ -12,8 +12,8 @@ using TicketApplication.Data.Data;
 namespace TicketApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230705212113_addShowingInShoppingCartModel")]
-    partial class addShowingInShoppingCartModel
+    [Migration("20230706104209_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -249,26 +249,6 @@ namespace TicketApplication.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DisplayOrder = 1,
-                            Name = "Action"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DisplayOrder = 2,
-                            Name = "Sci-Fi"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DisplayOrder = 3,
-                            Name = "Comedy"
-                        });
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.CinemaHall", b =>
@@ -328,41 +308,6 @@ namespace TicketApplication.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Movies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 10,
-                            CategoryId = 4,
-                            Description = "First Movie",
-                            Duration = 100,
-                            ImageUrl = "",
-                            Name = "Movie 15",
-                            ReleaseYear = 2010,
-                            TicketPrice = 50.0
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CategoryId = 4,
-                            Description = "Second Movie",
-                            Duration = 120,
-                            ImageUrl = "",
-                            Name = "Movie 25",
-                            ReleaseYear = 2000,
-                            TicketPrice = 70.0
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CategoryId = 4,
-                            Description = "Third Movie",
-                            Duration = 80,
-                            ImageUrl = "",
-                            Name = "Movie 35",
-                            ReleaseYear = 2001,
-                            TicketPrice = 10.0
-                        });
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.MovieShowing", b =>
@@ -411,6 +356,9 @@ namespace TicketApplication.Data.Migrations
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("totalSum")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -1,0 +1,110 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using TicketApplication.Data.Repository.Imp;
+using TicketApplication.Data.Repository.IRepository;
+using TicketApplication.Models.Models;
+using TicketApplication.Models.Relationship;
+using TicketApplication.Services.Interface;
+
+namespace TicketApplication.Services.Impl
+{
+    public class ShoppingCartService : IShoppingCartService
+    {
+        private readonly IRepository<ShoppingCart> _shoppingCartRepository;
+        private readonly IRepository<ShowingInShoppingCart> _showingInShoppingCartRepository;
+
+        public ShoppingCartService(IRepository<ShoppingCart> shoppingCartRepository, IRepository<ShowingInShoppingCart>  showingInShoppingCartRepository)
+        {
+            _shoppingCartRepository = shoppingCartRepository;
+            _showingInShoppingCartRepository = showingInShoppingCartRepository;
+        }
+
+        public void Add(ShoppingCart entity)
+        {
+            _shoppingCartRepository.Add(entity);
+        }
+
+        public void AddMovieShowingToShoppingCart(string userId,MovieShowing movieShowing, int number_of_tickets)
+        {
+            //GET LOGGED IN USER 
+            // GET SHOPPING CART OF USER 
+            // CREATE NEW SHOWING IN SHOPPING CART 
+            // ADD NEW MOVIE SHOWING TO SHOPPING CART OF USER
+            ShoppingCart? cart = _shoppingCartRepository.Get(x => x.UserId == userId);
+            
+            if (cart == null)
+            {
+                cart = new ShoppingCart
+                {
+                    UserId = userId,
+                    totalSum = 0
+                };
+
+                Add(cart);
+            }
+
+            ShowingInShoppingCart showingInShoppingCart = new ShowingInShoppingCart
+            {
+                ShoppingCartId = cart.Id,
+                MovieShowingId = movieShowing.Id,
+                Quantity = number_of_tickets,
+
+            };
+
+            cart.showingsInShoppingCarts.Add(showingInShoppingCart);
+            _showingInShoppingCartRepository.Update(showingInShoppingCart);
+            _shoppingCartRepository.Update(cart);
+            _shoppingCartRepository.Save();
+            _showingInShoppingCartRepository.Save();
+
+        }
+
+        public ShoppingCart Get(Expression<Func<ShoppingCart, bool>> filter)
+        {
+            return _shoppingCartRepository.Get(filter);
+        }
+
+        public IEnumerable<ShoppingCart> GetAll()
+        {
+            return _shoppingCartRepository.GetAll();
+        }
+
+        public void Remove(ShoppingCart entity)
+        {
+            _shoppingCartRepository.Remove(entity);
+        }
+
+        public void RemoveMovieShowingFromShoppingCart(string userId, MovieShowing movieShowing)
+        {
+            ShoppingCart cart = _shoppingCartRepository.Get(x => x.UserId == userId);
+
+            ShowingInShoppingCart showing =  _showingInShoppingCartRepository.Get(x => x.MovieShowingId == movieShowing.Id);
+
+            cart.showingsInShoppingCarts.Remove(showing);
+
+            _showingInShoppingCartRepository.Remove(showing);
+            _shoppingCartRepository.Update(cart);
+            _shoppingCartRepository.Save();
+            _showingInShoppingCartRepository.Save();
+        }
+
+        public void RemoveRange(IEnumerable<ShoppingCart> entities)
+        {
+            _shoppingCartRepository.RemoveRange(entities);
+        }
+
+        public void Save()
+        {
+            _shoppingCartRepository.Save();
+        }
+
+        public void Update(ShoppingCart entity)
+        {
+            _shoppingCartRepository.Update(entity);
+        }
+    }
+}

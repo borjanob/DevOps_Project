@@ -12,8 +12,8 @@ using TicketApplication.Data.Data;
 namespace TicketApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230703225520_addIdentityTables")]
-    partial class addIdentityTables
+    [Migration("20230706111759_SecondSeed")]
+    partial class SecondSeed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,10 @@ namespace TicketApplication.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -140,6 +144,10 @@ namespace TicketApplication.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -170,12 +178,10 @@ namespace TicketApplication.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -212,12 +218,10 @@ namespace TicketApplication.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -264,7 +268,39 @@ namespace TicketApplication.Data.Migrations
                             Id = 3,
                             DisplayOrder = 3,
                             Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DisplayOrder = 4,
+                            Name = "Drama"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DisplayOrder = 5,
+                            Name = "Animated"
                         });
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.CinemaHall", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("cinemaHalls");
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.Movie", b =>
@@ -308,37 +344,108 @@ namespace TicketApplication.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 10,
-                            CategoryId = 4,
-                            Description = "First Movie",
-                            Duration = 100,
-                            ImageUrl = "",
-                            Name = "Movie 15",
-                            ReleaseYear = 2010,
-                            TicketPrice = 50.0
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CategoryId = 4,
-                            Description = "Second Movie",
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.",
                             Duration = 120,
-                            ImageUrl = "",
-                            Name = "Movie 25",
-                            ReleaseYear = 2000,
-                            TicketPrice = 70.0
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CategoryId = 4,
-                            Description = "Third Movie",
-                            Duration = 80,
-                            ImageUrl = "",
-                            Name = "Movie 35",
-                            ReleaseYear = 2001,
-                            TicketPrice = 10.0
+                            ImageUrl = "\\images\\movie\\indiana_jones.jpg",
+                            Name = "Indiana Jones and the Dial of Destiny",
+                            ReleaseYear = 2023,
+                            TicketPrice = 15.0
                         });
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.MovieShowing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AvailableSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CinemaHallId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CinemaHallId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("movieShowings");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MovieShowingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfTickets")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("totalSum")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("shoppingCarts");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MovieShowingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieShowingId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("showingsInShoppingCart");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int>("Name")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -401,6 +508,60 @@ namespace TicketApplication.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.MovieShowing", b =>
+                {
+                    b.HasOne("TicketApplication.Models.Models.CinemaHall", "CinemaHall")
+                        .WithMany()
+                        .HasForeignKey("CinemaHallId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketApplication.Models.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CinemaHall");
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("TicketApplication.Models.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInShoppingCart", b =>
+                {
+                    b.HasOne("TicketApplication.Models.Models.MovieShowing", "MovieShowing")
+                        .WithMany()
+                        .HasForeignKey("MovieShowingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketApplication.Models.Models.ShoppingCart", "ShoppingCart")
+                        .WithMany("showingsInShoppingCarts")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MovieShowing");
+
+                    b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("showingsInShoppingCarts");
                 });
 #pragma warning restore 612, 618
         }

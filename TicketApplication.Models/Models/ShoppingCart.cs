@@ -15,11 +15,7 @@ namespace TicketApplication.Models.Models
         [Key]
         public int Id { get; set; }
 
-        public int MovieShowingId { get; set; }
-
-        public ICollection<ShowingInShoppingCart> showingsInShoppingCarts { get; set; }
-
-        public int NumberOfTickets { get; set; }    
+        public ICollection<ShowingInShoppingCart> showingsInShoppingCarts { get; set; }  
 
         public string UserId { get; set; }
 

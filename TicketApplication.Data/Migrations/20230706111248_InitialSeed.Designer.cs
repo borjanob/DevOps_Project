@@ -12,8 +12,8 @@ using TicketApplication.Data.Data;
 namespace TicketApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230705162131_addShowingAndHall")]
-    partial class addShowingAndHall
+    [Migration("20230706111248_InitialSeed")]
+    partial class InitialSeed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -268,6 +268,18 @@ namespace TicketApplication.Data.Migrations
                             Id = 3,
                             DisplayOrder = 3,
                             Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DisplayOrder = 4,
+                            Name = "Drama"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DisplayOrder = 5,
+                            Name = "Animated"
                         });
                 });
 
@@ -332,36 +344,14 @@ namespace TicketApplication.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 10,
-                            CategoryId = 4,
-                            Description = "First Movie",
-                            Duration = 100,
-                            ImageUrl = "",
-                            Name = "Movie 15",
-                            ReleaseYear = 2010,
-                            TicketPrice = 50.0
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CategoryId = 4,
-                            Description = "Second Movie",
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.",
                             Duration = 120,
-                            ImageUrl = "",
-                            Name = "Movie 25",
-                            ReleaseYear = 2000,
-                            TicketPrice = 70.0
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CategoryId = 4,
-                            Description = "Third Movie",
-                            Duration = 80,
-                            ImageUrl = "",
-                            Name = "Movie 35",
-                            ReleaseYear = 2001,
-                            TicketPrice = 10.0
+                            ImageUrl = "wwwroot\\seed_images\\indiana_jones.jpg",
+                            Name = "Indiana Jones and the Dial of Destiny",
+                            ReleaseYear = 2023,
+                            TicketPrice = 15.0
                         });
                 });
 
@@ -392,6 +382,60 @@ namespace TicketApplication.Data.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("movieShowings");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MovieShowingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfTickets")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("totalSum")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("shoppingCarts");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MovieShowingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieShowingId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("showingsInShoppingCart");
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.ApplicationUser", b =>
@@ -483,6 +527,41 @@ namespace TicketApplication.Data.Migrations
                     b.Navigation("CinemaHall");
 
                     b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("TicketApplication.Models.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInShoppingCart", b =>
+                {
+                    b.HasOne("TicketApplication.Models.Models.MovieShowing", "MovieShowing")
+                        .WithMany()
+                        .HasForeignKey("MovieShowingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketApplication.Models.Models.ShoppingCart", "ShoppingCart")
+                        .WithMany("showingsInShoppingCarts")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MovieShowing");
+
+                    b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("showingsInShoppingCarts");
                 });
 #pragma warning restore 612, 618
         }
