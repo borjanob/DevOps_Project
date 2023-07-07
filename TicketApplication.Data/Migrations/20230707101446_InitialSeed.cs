@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace TicketApplication.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -192,8 +194,6 @@ namespace TicketApplication.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MovieShowingId = table.Column<int>(type: "int", nullable: false),
-                    NumberOfTickets = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     totalSum = table.Column<int>(type: "int", nullable: false)
                 },
@@ -286,6 +286,30 @@ namespace TicketApplication.Data.Migrations
                         principalTable: "shoppingCarts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "DisplayOrder", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, "Action" },
+                    { 2, 2, "Sci-Fi" },
+                    { 3, 3, "Comedy" },
+                    { 4, 4, "Drama" },
+                    { 5, 5, "Animated" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Movies",
+                columns: new[] { "Id", "CategoryId", "Description", "Duration", "ImageUrl", "Name", "ReleaseYear", "TicketPrice" },
+                values: new object[,]
+                {
+                    { 1, 1, "Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.", 120, "seed_images/indiana_jones.jpg", "Indiana Jones and the Dial of Destiny", 2023, 15.0 },
+                    { 2, 5, "After reuniting with Gwen Stacy, Brooklyn's full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. However, when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders. He must soon redefine what it means to be a hero so he can save the people he loves most.\r\n", 120, "seed_images/spider_man.jpg", "Spider-Man: Across the Spider-Verse", 2023, 12.0 },
+                    { 3, 3, "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.", 120, "seed_images/barbie.jpg", "Barbie", 2023, 10.0 },
+                    { 4, 1, "With the price on his head ever increasing, legendary hit man John Wick takes his fight against the High Table global as he seeks out the most powerful players in the underworld, from New York to Paris to Japan to Berlin.", 120, "seed_images/john_wick.jpg", "John Wick: Chapter 4", 2023, 12.0 },
+                    { 5, 1, "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted and outdriven every foe in their path. Now, they must confront the most lethal opponent they've ever faced. Fueled by revenge, a terrifying threat emerges from the shadows of the past to shatter Dom's world and destroy everything -- and everyone -- he loves.", 120, "seed_images/fast_x.jpg", "Fast X", 2023, 12.0 }
                 });
 
             migrationBuilder.CreateIndex(
