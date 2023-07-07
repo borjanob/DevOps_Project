@@ -32,7 +32,10 @@ namespace TicketApplication.Data.Repository.Imp
         public ShoppingCart Get(Expression<Func<ShoppingCart, bool>> filter)
         {
             IQueryable<ShoppingCart> query = _dbSet.Include(x => x.User)
-                .Include(x => x.showingsInShoppingCarts);
+                .Include(x => x.showingsInShoppingCarts)
+                .Include("showingsInShoppingCarts.MovieShowing")
+                .Include("showingsInShoppingCarts.MovieShowing.Movie")
+                .Include("showingsInShoppingCarts.MovieShowing.CinemaHall");
             query = query.Where(filter);
             return query.FirstOrDefault();
         }

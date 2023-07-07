@@ -20,9 +20,12 @@ namespace TicketApplication.Controllers
 
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index()
         {
-            ShoppingCart cart = _shoppingCartService.Get(x => x.Id == id);
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ShoppingCart cart = _shoppingCartService.Get(x => x.UserId == userId);
             return View(cart);
         }
 
@@ -56,7 +59,7 @@ namespace TicketApplication.Controllers
             
                 _shoppingCartService.AddMovieShowingToShoppingCart(userId,movieShowing, number_of_tickets);
 
-                return RedirectToAction("/Home");
+                return RedirectToAction("Index");
             }
 
             return View(showingInShoppingCart);

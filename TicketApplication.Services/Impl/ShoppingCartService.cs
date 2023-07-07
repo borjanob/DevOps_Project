@@ -45,22 +45,39 @@ namespace TicketApplication.Services.Impl
                 };
 
                 Add(cart);
+                _shoppingCartRepository.Save();
             }
 
             ShowingInShoppingCart showingInShoppingCart = new ShowingInShoppingCart
             {
                 ShoppingCartId = cart.Id,
                 MovieShowingId = movieShowing.Id,
-                Quantity = number_of_tickets,
+                Quantity = number_of_tickets
+                //MovieShowing = movieShowing
 
             };
 
+            _showingInShoppingCartRepository.Add(showingInShoppingCart);
+            _showingInShoppingCartRepository.Save();
             cart.showingsInShoppingCarts.Add(showingInShoppingCart);
-            _showingInShoppingCartRepository.Update(showingInShoppingCart);
+
+            UpdateTotalSum(cart);
+
             _shoppingCartRepository.Update(cart);
             _shoppingCartRepository.Save();
-            _showingInShoppingCartRepository.Save();
 
+        }
+
+        public void UpdateTotalSum(ShoppingCart cart)
+        {
+            double totalSum = 0;
+            foreach(var obj in cart.showingsInShoppingCarts)
+            {
+                totalSum += obj.Quantity * obj.MovieShowing.Movie.TicketPrice;
+            }
+            cart.totalSum = (int)totalSum;
+            _shoppingCartRepository.Update(cart);
+            _shoppingCartRepository.Save();
         }
 
         public ShoppingCart Get(Expression<Func<ShoppingCart, bool>> filter)
