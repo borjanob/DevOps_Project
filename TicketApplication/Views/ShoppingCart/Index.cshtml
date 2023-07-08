@@ -33,6 +33,12 @@
         </tbody>
     </table>
     <div class="row">
+        <div class="col-4">
+            <a asp-controller="Order" asp-action="Confirm"><button class="btn btn-outline-primary">Confirm order</button></a>
+        </div>
+        <div class="col-6 justify-content-end">
         <h2>Total sum of shopping cart: @Model.totalSum</h2>
+        </div>
     </div>
+
 </div>

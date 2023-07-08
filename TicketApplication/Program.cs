@@ -20,6 +20,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
+
+//  Repositories 
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRepository<Movie>, MoviesRepository>();
@@ -27,8 +30,14 @@ builder.Services.AddScoped<IRepository<CinemaHall>, CinemaHallRepository>();
 builder.Services.AddScoped<IRepository<MovieShowing>, MovieShowingRepository>();
 builder.Services.AddScoped<IRepository<ShoppingCart>, ShoppingCartRepository>();
 builder.Services.AddScoped<IRepository<ShowingInShoppingCart>, ShowingInShoppingCartRepository>();
+builder.Services.AddScoped<IRepository<ShowingInOrder>, ShowingInOrderRepository>();
+builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
+
+// Services
+
 builder.Services.AddScoped<IMovieShowingService, MovieShowingService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 

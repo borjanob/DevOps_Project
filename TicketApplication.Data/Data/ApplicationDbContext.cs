@@ -31,6 +31,10 @@ namespace TicketApplication.Data.Data
 
         public DbSet<ShowingInShoppingCart> showingsInShoppingCart { get; set; }
 
+        public DbSet<ShowingInOrder> showingsInOrder { get; set; }
+
+        public DbSet<Order> orders { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
