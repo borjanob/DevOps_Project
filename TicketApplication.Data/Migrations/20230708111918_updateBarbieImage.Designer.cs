@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketApplication.Data.Data;
 
@@ -11,9 +12,11 @@ using TicketApplication.Data.Data;
 namespace TicketApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230708111918_updateBarbieImage")]
+    partial class updateBarbieImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,7 +348,7 @@ namespace TicketApplication.Data.Migrations
                             CategoryId = 1,
                             Description = "Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.",
                             Duration = 120,
-                            ImageUrl = "/seed_images/indiana_jones.jpg",
+                            ImageUrl = "seed_images/indiana_jones.jpg",
                             Name = "Indiana Jones and the Dial of Destiny",
                             ReleaseYear = 2023,
                             TicketPrice = 15.0
@@ -354,9 +357,9 @@ namespace TicketApplication.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 5,
-                            Description = "After reuniting with Gwen Stacy, Brooklyn's full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. However, when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders. He must soon redefine what it means to be a hero so he can save the people he loves most.",
+                            Description = "After reuniting with Gwen Stacy, Brooklyn's full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. However, when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders. He must soon redefine what it means to be a hero so he can save the people he loves most.\r\n",
                             Duration = 120,
-                            ImageUrl = "/seed_images/spider_man.jpg",
+                            ImageUrl = "seed_images/spider_man.jpg",
                             Name = "Spider-Man: Across the Spider-Verse",
                             ReleaseYear = 2023,
                             TicketPrice = 12.0
@@ -378,7 +381,7 @@ namespace TicketApplication.Data.Migrations
                             CategoryId = 1,
                             Description = "With the price on his head ever increasing, legendary hit man John Wick takes his fight against the High Table global as he seeks out the most powerful players in the underworld, from New York to Paris to Japan to Berlin.",
                             Duration = 120,
-                            ImageUrl = "/seed_images/john_wick.jpg",
+                            ImageUrl = "seed_images/john_wick.jpg",
                             Name = "John Wick: Chapter 4",
                             ReleaseYear = 2023,
                             TicketPrice = 12.0
@@ -389,7 +392,7 @@ namespace TicketApplication.Data.Migrations
                             CategoryId = 1,
                             Description = "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted and outdriven every foe in their path. Now, they must confront the most lethal opponent they've ever faced. Fueled by revenge, a terrifying threat emerges from the shadows of the past to shatter Dom's world and destroy everything -- and everyone -- he loves.",
                             Duration = 120,
-                            ImageUrl = "/seed_images/fax_x.jpg",
+                            ImageUrl = "seed_images/fax_x.jpg",
                             Name = "Fast X",
                             ReleaseYear = 2023,
                             TicketPrice = 12.0
@@ -400,7 +403,7 @@ namespace TicketApplication.Data.Migrations
                             CategoryId = 4,
                             Description = "A feature documentary exploring how one man's brilliance, hubris and relentless drive changed the nature of war forever, led to the deaths of hundreds of thousands of people and unleashed mass hysteria, and how, subsequently, the same man's attempts to co.",
                             Duration = 120,
-                            ImageUrl = "/seed_images/oppenheimer.jpg",
+                            ImageUrl = "seed_images/oppenheimer.jpg",
                             Name = "Oppenheimer",
                             ReleaseYear = 2023,
                             TicketPrice = 15.0

@@ -29,6 +29,15 @@ namespace TicketApplication.Controllers
             return View(cart);
         }
 
+
+        /*
+        [HttpPost,ActionName("Index")]
+        public IActionResult IndexPost() {
+            return View();
+        }
+        */
+
+
         public IActionResult AddToCart(int id) {
 
             MovieShowing movieShowing = _movieShowingService.Get(x => x.Id == id);

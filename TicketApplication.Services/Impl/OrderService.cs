@@ -43,7 +43,7 @@ namespace TicketApplication.Services.Impl
             throw new NotImplementedException();
         }
 
-        public void CompleteOrder(string userId)
+        public bool CompleteOrder(string userId)
         {
             // ZEMI SHOPPING CART ZA USER
 
@@ -58,6 +58,7 @@ namespace TicketApplication.Services.Impl
                 userId = userId,
                 totalSum = cart.totalSum,
                 orderDate = DateTime.Now,
+                showingsInOrder = new List<ShowingInOrder> ()
             };
 
             _orderRepository.Add(order);
@@ -66,7 +67,7 @@ namespace TicketApplication.Services.Impl
             // ZA SEKOJ MOVIESHOWING VO SHOPPINGINCART VO TOJ CART NAPRAJ NOV ENTITET VO
             // SHOWING IN ORDER
 
-            foreach(ShowingInShoppingCart obj in cart.showingsInShoppingCarts) {
+            foreach (ShowingInShoppingCart obj in cart.showingsInShoppingCarts) {
 
                 ShowingInOrder showing = new ShowingInOrder
                 {
@@ -101,7 +102,7 @@ namespace TicketApplication.Services.Impl
             _movieShowingRepository.Save();
             _shoppingCartRepository.Save();
 
-
+            return true;
             // SAVE NA ORDER REPOSITORY, SHOPPING CART REPOSITORY I SHOWING IN SHOPPING CART REPOSITORY
 
         }
@@ -111,6 +112,10 @@ namespace TicketApplication.Services.Impl
             return _orderRepository.Get(filter);
         }
 
+        public IEnumerable<Order> GetAllForUser(string userId)
+        {
+            return GetAll().Where(x => x.userId == userId);
+        }
         public IEnumerable<Order> GetAll()
         {
             return _orderRepository.GetAll();
@@ -134,6 +139,20 @@ namespace TicketApplication.Services.Impl
         public void Update(Order entity)
         {
             _orderRepository.Update(entity);
+        }
+
+        public int GetTotalSumForUser(string userId)
+        {
+            List<Order> ordersForUser = GetAllForUser(userId).ToList();
+
+            int totalSum = 0;
+
+            foreach(Order order in ordersForUser)
+            {
+                totalSum += order.totalSum;
+            }
+
+            return totalSum;
         }
     }
 }

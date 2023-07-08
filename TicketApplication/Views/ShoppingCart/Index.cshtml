@@ -3,6 +3,14 @@
 
 
 <div class="container">
+
+    @if (Model == null)
+    {
+        <h2>The shopping cart is empty</h2>    
+    
+    }
+    else
+    {
     <div class="row pt-4">
         <div class="col-6">
             <h2>Shopping cart for: @Model.User.UserName</h2>
@@ -40,5 +48,5 @@
         <h2>Total sum of shopping cart: @Model.totalSum</h2>
         </div>
     </div>
-
+    }
 </div>

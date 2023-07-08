@@ -15,8 +15,11 @@ namespace TicketApplication.Services.Interface
         void Add(Order entity);
 
         void AddCartToOrder(string userId, ShoppingCart cart);
+        IEnumerable<Order> GetAllForUser(string userId);
 
-        void CompleteOrder(string userId);
+        int GetTotalSumForUser(string userId);
+
+        bool CompleteOrder(string userId);
 
         //void Update(T entity);
         void Remove(Order entity);

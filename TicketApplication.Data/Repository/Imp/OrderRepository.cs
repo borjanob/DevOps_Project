@@ -38,6 +38,19 @@ namespace TicketApplication.Data.Repository.Imp
             return query.FirstOrDefault();
         }
 
+
+        /*
+        public IEnumerable<Order> GetAllFiltered(Expression<Func<Order, bool>> filter)
+        {
+            IQueryable<Order> query = dbSet.Include(x => x.applicationUser)
+                .Include(x => x.showingsInOrder)
+                .Include("showingsInOrder.MovieShowing")
+                .Include("showingsInOrder.MovieShowing.Movie")
+                .Include("showingsInOrder.MovieShowing.CinemaHall");
+            query = query.Where(filter);
+            return query.ToList();
+        }
+        */
         public IEnumerable<Order> GetAll()
         {
             IQueryable<Order> query = dbSet.Include(x => x.applicationUser)

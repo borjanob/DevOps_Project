@@ -37,6 +37,7 @@ namespace TicketApplication.Data.Repository.Imp
             return query.FirstOrDefault();
         }
 
+
         public IEnumerable<ShowingInOrder> GetAll()
         {
             IQueryable<ShowingInOrder> query = _dbSet.Include(x => x.MovieShowing)
