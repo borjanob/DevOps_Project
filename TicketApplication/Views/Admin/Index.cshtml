@@ -1,0 +1,67 @@
+﻿<div class="container">
+
+    <div class="row d-flex m-5">
+        <div class="text-center">
+            <h2>Welcome to the admin panel</h2>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Users</h5>
+                    <p class="card-text">Manage Users</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Orders</h5>
+                    <p class="card-text">Manage Orders</p>
+                    <button class="btn btn-outline-primary"><a class="nav-link" asp-controller="Order" asp-action="Index">Manage orders</a></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">Manage movie showings</p>
+                    <button class="btn btn-outline-primary"><a class="nav-link" asp-controller="MovieShowing" asp-action="Index">Movie showings</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">Manage movies</p>
+                    <button class="btn btn-outline-primary"><a class="nav-link" asp-controller="Movie" asp-action="Index">Movies</a></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage cinema halls</h5>
+                    <p class="card-text">Manage cinema halls</p>
+                    <button class="btn btn-outline-primary"><a class="nav-link" asp-controller="CinemaHall" asp-action="Index">Cinema Halls</a></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage movie categories</h5>
+                    <p class="card-text">Manage movie categories</p>
+                    <button class="btn btn-outline-primary"><a class="nav-link" asp-controller="Category" asp-action="Index">Category</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

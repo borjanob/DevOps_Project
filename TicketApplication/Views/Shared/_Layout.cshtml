@@ -29,31 +29,25 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        
+ @*                       
                         <li class="nav-item">
                             <a class="nav-link"  asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="ShoppingCart" asp-action="Index">View shopping cart</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Order" asp-action="Index">Orders</a>
-                        </li>
-                        @if (User.IsInRole(SD.Role_Admin))
+                        </li>*@
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link"  asp-controller="Category" asp-action="Index">Category</a>
+                                <a class="nav-link" asp-controller="ShoppingCart" asp-action="Index">View shopping cart</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Movie" asp-action="Index">Movies</a>
+                                <a class="nav-link" asp-controller="Order" asp-action="GetAllForUser">Orders</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="CinemaHall" asp-action="Index">Cinema Halls</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="MovieShowing" asp-action="Index">Movie showings</a>
-                            </li>
+                            @if (User.IsInRole(SD.Role_Admin))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link"  asp-controller="Admin" asp-action="Index">Admin panel</a>
+                                </li>
 
+                            }
                         }
                     </ul>
                     <partial name="_LoginPartial"/>

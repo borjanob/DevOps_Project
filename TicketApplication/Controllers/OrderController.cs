@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using System.Security.Claims;
 using TicketApplication.Models.Models;
 using TicketApplication.Services.Interface;
@@ -15,6 +16,14 @@ namespace TicketApplication.Controllers
         }
 
         public IActionResult Index()
+        {
+
+            List<Order>? orders = _orderService.GetAll().ToList();
+
+            return View(orders);
+        }
+
+        public IActionResult GetAllForUser()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -34,7 +43,7 @@ namespace TicketApplication.Controllers
 
             bool orderCompleted = _orderService.CompleteOrder(userId);
 
-            if(orderCompleted) {
+            if (orderCompleted) {
 
                 TempData["message"] = "Order completed successfully!";
                 return RedirectToAction("Index", "Home");
@@ -43,5 +52,6 @@ namespace TicketApplication.Controllers
             TempData["message"] = "Order completed successfully!";
             return RedirectToAction("Index", "Home");
         }
+  
     }
 }
