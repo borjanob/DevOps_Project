@@ -1,27 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TicketApplication.Data.Repository.IRepository;
 using TicketApplication.Models.Models;
 using TicketApplication.Services.Interface;
 
 namespace TicketApplication.Controllers
 {
-    public class AdminController : Controller
+    public class UserController : Controller
     {
-
-
         private readonly IUserService _userService;
 
-        public AdminController(IUserService service)
+        public UserController(IUserService service)
         {
             _userService = service;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult GetUsers() {
-            List<ApplicationUser> allUsers = _userService.GetAll().ToList();
+            List< ApplicationUser > allUsers= _userService.GetAll().ToList();
 
             return View(allUsers);
         }

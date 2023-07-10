@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketApplication.Models", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketApplication.Utility", "TicketApplication.Utility\TicketApplication.Utility.csproj", "{8FE32D93-FFD0-49F3-807C-C3A86BCD9670}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketApplication.Services", "TicketApplication.Services\TicketApplication.Services.csproj", "{FF2228CC-7CF0-4A13-AF22-300C4FF46600}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketApplication.Services", "TicketApplication.Services\TicketApplication.Services.csproj", "{FF2228CC-7CF0-4A13-AF22-300C4FF46600}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

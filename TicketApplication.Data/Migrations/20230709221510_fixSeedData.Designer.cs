@@ -12,8 +12,8 @@ using TicketApplication.Data.Data;
 namespace TicketApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230707101734_FixFastXImage")]
-    partial class FixFastXImage
+    [Migration("20230709221510_fixSeedData")]
+    partial class fixSeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -301,6 +301,26 @@ namespace TicketApplication.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("cinemaHalls");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Capacity = 150,
+                            Name = "Cinema hall 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Capacity = 100,
+                            Name = "Cinema hall 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Capacity = 200,
+                            Name = "Cinema hall 3"
+                        });
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.Movie", b =>
@@ -348,7 +368,7 @@ namespace TicketApplication.Data.Migrations
                             CategoryId = 1,
                             Description = "Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.",
                             Duration = 120,
-                            ImageUrl = "seed_images/indiana_jones.jpg",
+                            ImageUrl = "/seed_images/indiana_jones.jpg",
                             Name = "Indiana Jones and the Dial of Destiny",
                             ReleaseYear = 2023,
                             TicketPrice = 15.0
@@ -357,9 +377,9 @@ namespace TicketApplication.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 5,
-                            Description = "After reuniting with Gwen Stacy, Brooklyn's full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. However, when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders. He must soon redefine what it means to be a hero so he can save the people he loves most.\r\n",
+                            Description = "After reuniting with Gwen Stacy, Brooklyn's full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. However, when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders. He must soon redefine what it means to be a hero so he can save the people he loves most.",
                             Duration = 120,
-                            ImageUrl = "seed_images/spider_man.jpg",
+                            ImageUrl = "/seed_images/spider_man.jpg",
                             Name = "Spider-Man: Across the Spider-Verse",
                             ReleaseYear = 2023,
                             TicketPrice = 12.0
@@ -370,7 +390,7 @@ namespace TicketApplication.Data.Migrations
                             CategoryId = 3,
                             Description = "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
                             Duration = 120,
-                            ImageUrl = "seed_images/barbie.jpg",
+                            ImageUrl = "/seed_images/barbie.jpg",
                             Name = "Barbie",
                             ReleaseYear = 2023,
                             TicketPrice = 10.0
@@ -381,7 +401,7 @@ namespace TicketApplication.Data.Migrations
                             CategoryId = 1,
                             Description = "With the price on his head ever increasing, legendary hit man John Wick takes his fight against the High Table global as he seeks out the most powerful players in the underworld, from New York to Paris to Japan to Berlin.",
                             Duration = 120,
-                            ImageUrl = "seed_images/john_wick.jpg",
+                            ImageUrl = "/seed_images/john_wick.jpg",
                             Name = "John Wick: Chapter 4",
                             ReleaseYear = 2023,
                             TicketPrice = 12.0
@@ -392,10 +412,21 @@ namespace TicketApplication.Data.Migrations
                             CategoryId = 1,
                             Description = "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted and outdriven every foe in their path. Now, they must confront the most lethal opponent they've ever faced. Fueled by revenge, a terrifying threat emerges from the shadows of the past to shatter Dom's world and destroy everything -- and everyone -- he loves.",
                             Duration = 120,
-                            ImageUrl = "seed_images/fax_x.jpg",
+                            ImageUrl = "/seed_images/fax_x.jpg",
                             Name = "Fast X",
                             ReleaseYear = 2023,
                             TicketPrice = 12.0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 4,
+                            Description = "A feature documentary exploring how one man's brilliance, hubris and relentless drive changed the nature of war forever, led to the deaths of hundreds of thousands of people and unleashed mass hysteria, and how, subsequently, the same man's attempts to co.",
+                            Duration = 120,
+                            ImageUrl = "/seed_images/oppenheimer.jpg",
+                            Name = "Oppenheimer",
+                            ReleaseYear = 2023,
+                            TicketPrice = 15.0
                         });
                 });
 
@@ -426,6 +457,81 @@ namespace TicketApplication.Data.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("movieShowings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailableSeats = 150,
+                            CinemaHallId = 1,
+                            MovieId = 1,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4674)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailableSeats = 100,
+                            CinemaHallId = 2,
+                            MovieId = 2,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4716)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvailableSeats = 200,
+                            CinemaHallId = 3,
+                            MovieId = 3,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4718)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AvailableSeats = 150,
+                            CinemaHallId = 1,
+                            MovieId = 4,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4720)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AvailableSeats = 100,
+                            CinemaHallId = 2,
+                            MovieId = 5,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4721)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AvailableSeats = 200,
+                            CinemaHallId = 3,
+                            MovieId = 6,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4723)
+                        });
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("orderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("totalSum")
+                        .HasColumnType("int");
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("orders");
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
@@ -448,6 +554,29 @@ namespace TicketApplication.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("shoppingCarts");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MovieShowingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieShowingId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("showingsInOrder");
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInShoppingCart", b =>
@@ -567,6 +696,17 @@ namespace TicketApplication.Data.Migrations
                     b.Navigation("Movie");
                 });
 
+            modelBuilder.Entity("TicketApplication.Models.Models.Order", b =>
+                {
+                    b.HasOne("TicketApplication.Models.Models.ApplicationUser", "applicationUser")
+                        .WithMany()
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("applicationUser");
+                });
+
             modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>
                 {
                     b.HasOne("TicketApplication.Models.Models.ApplicationUser", "User")
@@ -576,6 +716,25 @@ namespace TicketApplication.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInOrder", b =>
+                {
+                    b.HasOne("TicketApplication.Models.Models.MovieShowing", "MovieShowing")
+                        .WithMany()
+                        .HasForeignKey("MovieShowingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketApplication.Models.Models.Order", "Order")
+                        .WithMany("showingsInOrder")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MovieShowing");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Relationship.ShowingInShoppingCart", b =>
@@ -595,6 +754,11 @@ namespace TicketApplication.Data.Migrations
                     b.Navigation("MovieShowing");
 
                     b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("TicketApplication.Models.Models.Order", b =>
+                {
+                    b.Navigation("showingsInOrder");
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.ShoppingCart", b =>

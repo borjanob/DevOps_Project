@@ -39,7 +39,7 @@ namespace TicketApplication.Data.Data
         {
 
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id=1, Name="Action", DisplayOrder = 1},
                 new Category { Id = 2, Name = "Sci-Fi", DisplayOrder = 2 },
@@ -57,6 +57,29 @@ namespace TicketApplication.Data.Data
             new Movie { Id = 6, Name = "Oppenheimer", Description = "A feature documentary exploring how one man's brilliance, hubris and relentless drive changed the nature of war forever, led to the deaths of hundreds of thousands of people and unleashed mass hysteria, and how, subsequently, the same man's attempts to co.", Duration = 120, ReleaseYear = 2023, TicketPrice = 15, CategoryId = 4, ImageUrl = "/seed_images/oppenheimer.jpg" }
 
                 );
+
+            modelBuilder.Entity<CinemaHall>().HasData(
+                new CinemaHall { Id = 1, Name = "Cinema hall 1", Capacity = 150 },
+                new CinemaHall { Id = 2, Name = "Cinema hall 2", Capacity = 100 },
+                new CinemaHall { Id = 3, Name = "Cinema hall 3", Capacity = 200 }
+            );
+
+             modelBuilder.Entity<MovieShowing>().HasData(
+                new MovieShowing { Id = 1, MovieId = 1, CinemaHallId =1 , StartTime =DateTime.Now, AvailableSeats = 150 },
+                new MovieShowing { Id = 2, MovieId = 2, CinemaHallId = 2, StartTime = DateTime.Now, AvailableSeats = 100 },
+                new MovieShowing { Id = 3, MovieId = 3, CinemaHallId = 3, StartTime = DateTime.Now, AvailableSeats = 200 },
+                new MovieShowing { Id = 4, MovieId = 4, CinemaHallId = 1, StartTime = DateTime.Now, AvailableSeats = 150 },
+                new MovieShowing { Id = 5, MovieId = 5, CinemaHallId = 2, StartTime = DateTime.Now, AvailableSeats = 100 },
+                new MovieShowing { Id = 6, MovieId = 6, CinemaHallId = 3, StartTime = DateTime.Now, AvailableSeats = 200 }
+            );
+
+      /*      modelBuilder.Entity<IdentityUser>().HasData(
+               new IdentityUser { Id = "2", Email = "test@tes.com", PasswordHash = "Test123.",  } 
+           );
+*/
+
+
+
         }
     }
 }

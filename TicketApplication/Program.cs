@@ -12,6 +12,7 @@ using TicketApplication.Models.Relationship;
 
 var builder = WebApplication.CreateBuilder(args);
 
+GemBox.Document.ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 // Add services to the container.
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -33,12 +34,13 @@ builder.Services.AddScoped<IRepository<ShoppingCart>, ShoppingCartRepository>();
 builder.Services.AddScoped<IRepository<ShowingInShoppingCart>, ShowingInShoppingCartRepository>();
 builder.Services.AddScoped<IRepository<ShowingInOrder>, ShowingInOrderRepository>();
 builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
-
+builder.Services.AddScoped<IRepository<ApplicationUser>, UserRepository>();
 // Services
 
 builder.Services.AddScoped<IMovieShowingService, MovieShowingService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 

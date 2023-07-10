@@ -298,6 +298,26 @@ namespace TicketApplication.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("cinemaHalls");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Capacity = 150,
+                            Name = "Cinema hall 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Capacity = 100,
+                            Name = "Cinema hall 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Capacity = 200,
+                            Name = "Cinema hall 3"
+                        });
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.Movie", b =>
@@ -434,6 +454,56 @@ namespace TicketApplication.Data.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("movieShowings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailableSeats = 150,
+                            CinemaHallId = 1,
+                            MovieId = 1,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4674)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailableSeats = 100,
+                            CinemaHallId = 2,
+                            MovieId = 2,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4716)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvailableSeats = 200,
+                            CinemaHallId = 3,
+                            MovieId = 3,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4718)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AvailableSeats = 150,
+                            CinemaHallId = 1,
+                            MovieId = 4,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4720)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AvailableSeats = 100,
+                            CinemaHallId = 2,
+                            MovieId = 5,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4721)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AvailableSeats = 200,
+                            CinemaHallId = 3,
+                            MovieId = 6,
+                            StartTime = new DateTime(2023, 7, 10, 0, 15, 10, 382, DateTimeKind.Local).AddTicks(4723)
+                        });
                 });
 
             modelBuilder.Entity("TicketApplication.Models.Models.Order", b =>

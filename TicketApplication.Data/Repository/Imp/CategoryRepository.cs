@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TicketApplication.Data.Data;
 using TicketApplication.Data.Repository.IRepository;
 using TicketApplication.Models;
+using TicketApplication.Models.Models;
 
 namespace TicketApplication.Data.Repository.Imp
 {
@@ -20,6 +21,11 @@ namespace TicketApplication.Data.Repository.Imp
         public void Update(Category category)
         {
             _context.Update(category);
+        }
+
+        public List<Category> GetAll()
+        { 
+            return _context.Set<Category>().ToList();
         }
     }
 }

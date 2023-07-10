@@ -1,0 +1,18 @@
+﻿@model List<Category>
+
+
+<form method="post">
+    <div class="mb-3 row">
+        <label>Select movie category for export</label>
+        <select id="categoryId" name="categoryId">
+            <option disabled selected>Select category</option>
+            <option value="0">All cagetories</option>
+            @foreach (var obj in @Model)
+            {
+                <option value="@obj.Id"> @obj.Name</option>
+           
+            }
+        </select>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">Export</button>
+</form>

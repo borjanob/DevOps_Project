@@ -1,0 +1,31 @@
+﻿@using TicketApplication.Models.Models;
+@model List<ApplicationUser>
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2>User managment site</h2>
+        </div>
+    </div>
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.UserName</td>
+                    <td>@obj.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
