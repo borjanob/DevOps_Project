@@ -72,14 +72,6 @@ namespace TicketApplication.Data.Data
                 new MovieShowing { Id = 5, MovieId = 5, CinemaHallId = 2, StartTime = DateTime.Now, AvailableSeats = 100 },
                 new MovieShowing { Id = 6, MovieId = 6, CinemaHallId = 3, StartTime = DateTime.Now, AvailableSeats = 200 }
             );
-
-      /*      modelBuilder.Entity<IdentityUser>().HasData(
-               new IdentityUser { Id = "2", Email = "test@tes.com", PasswordHash = "Test123.",  } 
-           );
-*/
-
-
-
         }
     }
 }
