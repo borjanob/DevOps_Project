@@ -9,6 +9,9 @@ RUN dotnet restore "./TicketApplication.csproj"
 COPY . .
 WORKDIR "/src/."
 RUN dotnet build "TicketApplication/TicketApplication.csproj" -c Release -o /app/build
+#RUN dotnet tool install --global dotnet-ef
+#RUN cd TicketApplication.Data
+#RUN dotnet-ef database update
 
 FROM build AS publish
 RUN dotnet publish "TicketApplication/TicketApplication.csproj" -c Release -o /app/publish /p:UseAppHost=false

@@ -5,14 +5,15 @@ services:
     container_name: sql_server 
     environment:
       - ACCEPT_EULA=y
-      - SA_PASSWORD=ticketAppPassword77%
+      - MSSQL_SA_PASSWORD=ticketAppPassword77%
     restart: always
     ports:
       - "1433:1433"
   web_app:
-    build: 
-      dockerfile: Dockerfile
-      context: .
+    # build: 
+    #   dockerfile: Dockerfile
+    #   context: .
+    image: "borjanob/ticket_app:latest"
     container_name: web_app_application
     ports:
       - "8080:80"

@@ -1,0 +1,13 @@
+name: TicketApplication Deploy
+on:
+    push:
+        branches:
+            - master
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{secrets.DOCKER_PASSWORD}}
+            - run: docket build -t borjanob/ticket_app .
+            - run: docker push borjanob/multi-client-10-14:latest

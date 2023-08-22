@@ -9,6 +9,10 @@ using TicketApplication.Data.Repository.IRepository;
 using TicketApplication.Services.Interface;
 using TicketApplication.Services.Impl;
 using TicketApplication.Models.Relationship;
+using Microsoft.Data.SqlClient;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,17 +39,14 @@ builder.Services.AddScoped<IRepository<ShowingInShoppingCart>, ShowingInShopping
 builder.Services.AddScoped<IRepository<ShowingInOrder>, ShowingInOrderRepository>();
 builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
 builder.Services.AddScoped<IRepository<ApplicationUser>, UserRepository>();
+
 // Services
 
 builder.Services.AddScoped<IMovieShowingService, MovieShowingService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-
-
-
 
 var app = builder.Build();
 
@@ -57,12 +58,28 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-using (var scope = app.Services.CreateScope())
-{ 
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-    dbContext.Database.Migrate();
+//    "DefaultConnection": "Server=sql_server;Database=TicketApplicationDb;User Id=mssql;Password=ticketAppPassword77%;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True"
+
+// string serverName = "sql_server";
+// string databaseName = "TicketApplicationDb";
+// string username = "sa";
+// string password = "ticketAppPassword77%";
+
+// ServerConnection serverConnection = new ServerConnection(serverName, username, password);
+// Server server = new Server(serverConnection);
+// Database database = server.Databases[databaseName];
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    // if (database == null)
+    // { 
+        context.Database.Migrate();
+    //}
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
