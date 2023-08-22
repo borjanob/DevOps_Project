@@ -1,4 +1,4 @@
-name: TicketApplication Deploy
+name: DevOps_Project Deploy
 on:
     push:
         branches:
