@@ -11,7 +11,8 @@ services:
       - "1433:1433"
   web_app:
     build: 
-    image: "borjanob/ticket_app:latest"
+      dockerfile: Dockerfile
+      context: .
     container_name: web_app_application
     ports:
       - "8080:80"

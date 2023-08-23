@@ -58,26 +58,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
-//    "DefaultConnection": "Server=sql_server;Database=TicketApplicationDb;User Id=mssql;Password=ticketAppPassword77%;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True"
-
-// string serverName = "sql_server";
-// string databaseName = "TicketApplicationDb";
-// string username = "sa";
-// string password = "ticketAppPassword77%";
-
-// ServerConnection serverConnection = new ServerConnection(serverName, username, password);
-// Server server = new Server(serverConnection);
-// Database database = server.Databases[databaseName];
-
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-    // if (database == null)
-    // { 
-        context.Database.Migrate();
-    //}
+    context.Database.Migrate();
 }
 
 
