@@ -12,7 +12,8 @@ using TicketApplication.Models.Relationship;
 using Microsoft.Data.SqlClient;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
-
+using NuGet.Protocol;
+using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,10 +27,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
-
-builder.Services.AddDataProtection()
-    .PersistKeysToDbContext<ApplicationDbContext>()
-    .SetApplicationName("TicketApplication");
 
 //  Repositories 
 
@@ -62,10 +59,43 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+static bool CheckDatabaseExists(string connectionString, string databaseName)
+{
+    string sqlQuery;
+    bool result = false;
+    try
+    {
+        SqlConnection conn = new SqlConnection(connectionString);
+        sqlQuery = string.Format("SELECT database_id FROM sys.databases WHERE Name = '{0}'", databaseName);
+        using (conn)
+        {
+            using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))
+            {
+                conn.Open();
+                int databaseID = (int)cmd.ExecuteScalar();
+                conn.Close();
+                result = (databaseID > 0);
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        result = false;
+    }
+    return result;
+}
+// "Server=sql_server;Database=TicketApplicationDb;User Id=sa;Password=ticketAppPassword77%;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True"
+//  TicketApplicationDb
 using (var scope = app.Services.CreateScope())
 {
+   
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    context.Database.Migrate();
+    if (CheckDatabaseExists("Server=sql_server;Database=TicketApplicationDb;User Id=sa;Password=ticketAppPassword77%;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True", "TicketApplicationDb") == false)
+    {
+        context.Database.Migrate();
+    }
+        
 }
 
 

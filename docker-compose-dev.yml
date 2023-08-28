@@ -11,7 +11,7 @@ services:
       - "1433:1433"
   web_app:
     build: 
-      dockerfile: Dockerfile.WebApp
+      dockerfile: Dockerfile
       context: .
     container_name: web_app_application
     ports:
