@@ -9,6 +9,9 @@ services:
     restart: always
     ports:
       - "1433:1433"
+    #volumes:
+    #  - C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\TicketApplicationDB.mdf:/var/opt/mssql/data/master.mdf
+    #C:\templatedata\master.mdf:/var/opt/mssql/data/master.mdf
   web_app:
     build: 
       dockerfile: Dockerfile

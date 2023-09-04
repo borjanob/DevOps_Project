@@ -85,18 +85,19 @@ static bool CheckDatabaseExists(string connectionString, string databaseName)
     }
     return result;
 }
-// "Server=sql_server;Database=TicketApplicationDb;User Id=sa;Password=ticketAppPassword77%;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True"
-//  TicketApplicationDb
+
+
 using (var scope = app.Services.CreateScope())
 {
    
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    if (CheckDatabaseExists("Server=sql_server;Database=TicketApplicationDb;User Id=sa;Password=ticketAppPassword77%;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True", "TicketApplicationDb") == false)
+    if (CheckDatabaseExists("Server=sql_server,1433;Database=TicketApplicationDb;User Id=sa;Password=ticketAppPassword77%;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True", "TicketApplicationDb") == false)
     {
         context.Database.Migrate();
     }
         
 }
+
 
 
 app.UseHttpsRedirection();
