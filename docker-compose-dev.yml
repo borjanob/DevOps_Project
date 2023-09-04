@@ -19,5 +19,7 @@ services:
     container_name: web_app_application
     ports:
       - "8080:80"
+    #volumes:
+    #  - home/borjan/DevOps_Project/TicketApplication/TicketApplicationDB.db:./TicketApplication/TicketApplicationDB.db:rw
     depends_on:
       - database

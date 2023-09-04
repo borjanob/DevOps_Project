@@ -9,11 +9,9 @@ using TicketApplication.Data.Repository.IRepository;
 using TicketApplication.Services.Interface;
 using TicketApplication.Services.Impl;
 using TicketApplication.Models.Relationship;
+using HarfBuzzSharp;
+using System.Data.Common;
 using Microsoft.Data.SqlClient;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
-using NuGet.Protocol;
-using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +20,13 @@ GemBox.Document.ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
+/*builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+*/
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
+
 
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
@@ -40,14 +43,17 @@ builder.Services.AddScoped<IRepository<ShowingInShoppingCart>, ShowingInShopping
 builder.Services.AddScoped<IRepository<ShowingInOrder>, ShowingInOrderRepository>();
 builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
 builder.Services.AddScoped<IRepository<ApplicationUser>, UserRepository>();
-
 // Services
 
 builder.Services.AddScoped<IMovieShowingService, MovieShowingService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+
+
 
 var app = builder.Build();
 
@@ -89,15 +95,14 @@ static bool CheckDatabaseExists(string connectionString, string databaseName)
 
 using (var scope = app.Services.CreateScope())
 {
-   
+
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    if (CheckDatabaseExists("Server=sql_server,1433;Database=TicketApplicationDb;User Id=sa;Password=ticketAppPassword77%;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True", "TicketApplicationDb") == false)
+    if (CheckDatabaseExists("DataSource=TicketApplicationDB.db;Cache=Shared", "TicketApplicationDB") == false)
     {
         context.Database.Migrate();
     }
-        
-}
 
+}
 
 
 app.UseHttpsRedirection();
