@@ -9,6 +9,8 @@ services:
     restart: always
     ports:
       - "1433:1433"
+    networks:
+      - common-net
     #volumes:
     #  - "./datafiles/TicketApplicationDB.mdf:/var/opt/mssql/data/master.mdf"
   web_app:
@@ -18,3 +20,7 @@ services:
       - "8080:80"
     depends_on:
       - database
+    networks:
+      - common-net
+networks:
+  common-net: {}
