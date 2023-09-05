@@ -20,13 +20,13 @@ GemBox.Document.ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-/*builder.Services.AddDbContext<ApplicationDbContext>(options => 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-*/
 
+/*
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
-
+*/
 
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
@@ -97,7 +97,7 @@ using (var scope = app.Services.CreateScope())
 {
 
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    if (CheckDatabaseExists("DataSource=TicketApplicationDB.db;Cache=Shared", "TicketApplicationDB") == false)
+    if (CheckDatabaseExists(builder.Configuration.GetConnectionString("DefaultConnection"), "TicketApplicationDB") == false)
     {
         context.Database.Migrate();
     }

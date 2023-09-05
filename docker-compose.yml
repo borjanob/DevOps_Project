@@ -9,10 +9,6 @@ services:
     restart: always
     ports:
       - "1433:1433"
-    networks:
-      - common-net
-    #volumes:
-    #  - "./datafiles/TicketApplicationDB.mdf:/var/opt/mssql/data/master.mdf"
   web_app:
     image: "borjanob/ticket_app:latest"
     container_name: web_app_application
@@ -20,7 +16,3 @@ services:
       - "8080:80"
     depends_on:
       - database
-    networks:
-      - common-net
-networks:
-  common-net: {}
