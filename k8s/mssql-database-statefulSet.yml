@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mssql-database
+spec:
+  replicas: 1
+  serviceName: mssql-database-service
+  selector:
+    matchLabels:
+      component: database
+  template:
+    metadata:
+      labels:
+        component: database
+    spec:
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: mssql-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
+      containers:
+        - name: mysql
+          image: mcr.microsoft.com/mssql/server:latest
+          ports:
+            - containerPort: 1433
+          env:
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef: 
+                  name: mssql-database-secrets
+                  key: MSSQL_SA_PASSWORD
+            - name: ACCEPT_EULA
+              value: 'y'

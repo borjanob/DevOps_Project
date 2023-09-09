@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-application-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: ticketApp
+  template:
+    metadata:
+      labels:
+        component: ticketApp
+    spec:
+      containers:
+        - name: ticket-app
+          image: borjanob/ticket_app
+          ports: 
+            - containerPort: 8000
