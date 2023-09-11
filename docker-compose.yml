@@ -2,7 +2,7 @@ version: "3.9"
 services:
   database:
     image: "mcr.microsoft.com/mssql/server:latest"
-    container_name: sql_server 
+    container_name: mssql-database 
     environment:
       - ACCEPT_EULA=y
       - MSSQL_SA_PASSWORD=ticketAppPassword77%

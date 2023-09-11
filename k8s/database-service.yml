@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-database
+spec:
+  type: ClusterIP
+  selector:
+    component: mssql
+  ports: 
+    - port: 1433
+      targetPort: 1433

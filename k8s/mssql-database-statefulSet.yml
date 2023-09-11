@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mssql-database
+  name: mssql-statefulset
 spec:
   replicas: 1
   serviceName: mssql-database-service
@@ -17,7 +17,7 @@ spec:
       volumes:
         - name: mssql-storage
           persistentVolumeClaim:
-            claimName: database-persistent-volume-claim
+            claimName: mssql-persistent-volume-claim
       containers:
         - name: mysql
           image: mcr.microsoft.com/mssql/server:latest

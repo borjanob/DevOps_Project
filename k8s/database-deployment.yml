@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql-database-deployment 
+spec:
+  selector:
+    matchLabels:
+      component: mssql
+  strategy:
+    type : Recreate
+  template:
+    metadata: 
+      labels:
+        component: mssql
+    spec:
+      containers:
+        - name: mssql
+          image: mcr.microsoft.com/mssql/server:latest
+          imagePullPolicy: Never
+          env:
+            - name: ACCEPT_EULA
+              value: 'y'
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef: 
+                  name: mssql-database-secrets
+                  key: MSSQL_SA_PASSWORD
+          ports:
+            - containerPort: 1433
+          volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mssql-persistent-volume-claim

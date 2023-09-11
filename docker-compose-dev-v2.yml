@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  database:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    user: root
+    container_name: mssql-database
+    hostname: mssql-database
+    volumes:
+      - sql_server_data:/var/opt/mssql/data
+      - sql_server_log:/var/opt/mssql/log
+      - sql_server_secrets:/var/opt/mssql/secrets
+    environment:
+      - ACCEPT_EULA=y
+      - MSSQL_SA_PASSWORD=ticketAppPassword77%
+      - MSQL_PID=Express
+    restart: always
+    ports:
+      - "1433:1433"
+  web_app:
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8000:80"
+    depends_on:
+      - database
+volumes:
+  sql_server_data:
+  sql_server_log:
+  sql_server_secrets:

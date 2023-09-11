@@ -92,7 +92,7 @@ static bool CheckDatabaseExists(string connectionString, string databaseName)
     return result;
 }
 
-
+/*
 using (var scope = app.Services.CreateScope())
 {
 
@@ -103,7 +103,7 @@ using (var scope = app.Services.CreateScope())
     }
 
 }
-
+*/
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
