@@ -15,3 +15,21 @@ jobs:
             - run: docker build -t borjanob/ticket_app:latest -t borjanob/ticket_app:${{ env.SHA }} .
             - run: docker push borjanob/ticket_app:latest
             - run: docker push borjanob/ticket_app:${{ env.SHA }}
+            
+            - name: Generate deployment package
+              run: zip -r deploy.zip . -x '*.git*'
+
+            - name: Deploy to EB
+              uses: einaregilsson/beanstalk-deploy@v18
+              with:
+                aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+                aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+                #application_name, environment_name, existing_bucket_name, and region
+                application_name: ticket-application
+                environment_name: Ticket-application-env
+                existing_bucket_name: elasticbeanstalk-eu-north-1-753150288944
+                region: eu-north-1
+                version_label: ${{ github.sha }}
+                deployment_package: deploy.zip
+
+            
