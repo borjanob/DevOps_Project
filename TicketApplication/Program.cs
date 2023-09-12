@@ -99,7 +99,14 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     if (CheckDatabaseExists(builder.Configuration.GetConnectionString("DefaultConnection"), "TicketApplicationDB") == false)
     {
-        context.Database.Migrate();
+        try
+        {
+            context.Database.Migrate();
+        }
+        catch (Exception e)
+        {
+            
+        }
     }
 
 }

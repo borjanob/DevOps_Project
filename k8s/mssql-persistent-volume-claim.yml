@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata: 
   name: mssql-persistent-volume-claim
+  namespace: devops-project
 spec:
   accessModes:
     - ReadWriteOnce

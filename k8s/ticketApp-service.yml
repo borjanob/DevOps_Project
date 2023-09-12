@@ -2,10 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ticket-application-service
+  namespace: devops-project
 spec:
   type: ClusterIP
   selector:
-    component: ticketApp
+    component: ticketapp
   ports:
     - port: 8000
       targetPort: 8000

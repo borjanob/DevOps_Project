@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mssql-statefulset
+  namespace: devops-project
 spec:
   replicas: 1
   serviceName: mssql-database-service

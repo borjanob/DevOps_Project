@@ -2,15 +2,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ticket-application-deployment
+  namespace: devops-project
 spec:
   replicas: 3
   selector:
     matchLabels:
-      component: ticketApp
+      component: ticketapp
   template:
     metadata:
       labels:
-        component: ticketApp
+        component: ticketapp
     spec:
       containers:
         - name: ticket-app
