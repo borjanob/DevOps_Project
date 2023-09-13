@@ -17,4 +17,4 @@ spec:
         - name: ticket-app
           image: borjanob/ticket_app:1d344c9ed584503ad9c46affce7ed51e7999c656
           ports: 
-            - containerPort: 8000
+            - containerPort: 80

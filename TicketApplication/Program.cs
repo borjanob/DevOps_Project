@@ -14,6 +14,16 @@ using System.Data.Common;
 using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
+/*
+var bla = new WebHostBuilder()
+    .UseContentRoot(Directory.GetCurrentDirectory())
+    // ..
+    .ConfigureAppConfiguration((hostingContext, config) =>
+    {
+        // ..  
+        config.AddEnvironmentVariables(); // <---
+        // ..
+    });*/
 
 GemBox.Document.ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 // Add services to the container.
@@ -27,6 +37,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
 */
+
 
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
@@ -111,6 +122,8 @@ using (var scope = app.Services.CreateScope())
 
 }
 
+var pathbase = "app";
+app.UsePathBase($"/{pathbase.TrimStart('/')}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
