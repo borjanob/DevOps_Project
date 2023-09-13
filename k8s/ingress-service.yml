@@ -7,6 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
   namespace: devops-project
 spec:
+  ingressClassName: nginx
   rules:
     - http:
         paths:
