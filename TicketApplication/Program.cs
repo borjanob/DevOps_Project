@@ -122,9 +122,10 @@ using (var scope = app.Services.CreateScope())
 
 }
 
+/*
 var pathbase = "app";
 app.UsePathBase($"/{pathbase.TrimStart('/')}");
-
+*/
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
