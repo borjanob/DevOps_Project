@@ -1,3 +1,19 @@
+
+#database-service.yml:
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-database
+  namespace: devops-project
+spec:
+  type: ClusterIP
+  selector:
+    component: mssql
+  ports: 
+    - port: 1433
+      targetPort: 1433
+
+#database-deployment.yml:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
