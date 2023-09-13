@@ -362,12 +362,12 @@ namespace TicketApplication.Data.Migrations
                 columns: new[] { "Id", "CategoryId", "Description", "Duration", "ImageUrl", "Name", "ReleaseYear", "TicketPrice" },
                 values: new object[,]
                 {
-                    { 1, 1, "Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.", 120, "/seed_images/indiana_jones.jpg", "Indiana Jones and the Dial of Destiny", 2023, 15.0 },
-                    { 2, 5, "After reuniting with Gwen Stacy, Brooklyn's full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. However, when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders. He must soon redefine what it means to be a hero so he can save the people he loves most.", 120, "/seed_images/spider_man.jpg", "Spider-Man: Across the Spider-Verse", 2023, 12.0 },
-                    { 3, 3, "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.", 120, "/seed_images/barbie.jpg", "Barbie", 2023, 10.0 },
-                    { 4, 1, "With the price on his head ever increasing, legendary hit man John Wick takes his fight against the High Table global as he seeks out the most powerful players in the underworld, from New York to Paris to Japan to Berlin.", 120, "/seed_images/john_wick.jpg", "John Wick: Chapter 4", 2023, 12.0 },
-                    { 5, 1, "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted and outdriven every foe in their path. Now, they must confront the most lethal opponent they've ever faced. Fueled by revenge, a terrifying threat emerges from the shadows of the past to shatter Dom's world and destroy everything -- and everyone -- he loves.", 120, "/seed_images/fax_x.jpg", "Fast X", 2023, 12.0 },
-                    { 6, 4, "A feature documentary exploring how one man's brilliance, hubris and relentless drive changed the nature of war forever, led to the deaths of hundreds of thousands of people and unleashed mass hysteria, and how, subsequently, the same man's attempts to co.", 120, "/seed_images/oppenheimer.jpg", "Oppenheimer", 2023, 15.0 }
+                    { 1, 1, "Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.", 120, "/app/seed_images/indiana_jones.jpg", "Indiana Jones and the Dial of Destiny", 2023, 15.0 },
+                    { 2, 5, "After reuniting with Gwen Stacy, Brooklyn's full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. However, when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders. He must soon redefine what it means to be a hero so he can save the people he loves most.", 120, "/app/seed_images/spider_man.jpg", "Spider-Man: Across the Spider-Verse", 2023, 12.0 },
+                    { 3, 3, "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.", 120, "/app/seed_images/barbie.jpg", "Barbie", 2023, 10.0 },
+                    { 4, 1, "With the price on his head ever increasing, legendary hit man John Wick takes his fight against the High Table global as he seeks out the most powerful players in the underworld, from New York to Paris to Japan to Berlin.", 120, "/app/seed_images/john_wick.jpg", "John Wick: Chapter 4", 2023, 12.0 },
+                    { 5, 1, "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted and outdriven every foe in their path. Now, they must confront the most lethal opponent they've ever faced. Fueled by revenge, a terrifying threat emerges from the shadows of the past to shatter Dom's world and destroy everything -- and everyone -- he loves.", 120, "/app/seed_images/fax_x.jpg", "Fast X", 2023, 12.0 },
+                    { 6, 4, "A feature documentary exploring how one man's brilliance, hubris and relentless drive changed the nature of war forever, led to the deaths of hundreds of thousands of people and unleashed mass hysteria, and how, subsequently, the same man's attempts to co.", 120, "/app/seed_images/oppenheimer.jpg", "Oppenheimer", 2023, 15.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -375,12 +375,12 @@ namespace TicketApplication.Data.Migrations
                 columns: new[] { "Id", "AvailableSeats", "CinemaHallId", "MovieId", "StartTime" },
                 values: new object[,]
                 {
-                    { 1, 150, 1, 1, new DateTime(2023, 9, 13, 23, 26, 19, 699, DateTimeKind.Local).AddTicks(9565) },
-                    { 2, 100, 2, 2, new DateTime(2023, 9, 13, 23, 26, 19, 699, DateTimeKind.Local).AddTicks(9637) },
-                    { 3, 200, 3, 3, new DateTime(2023, 9, 13, 23, 26, 19, 699, DateTimeKind.Local).AddTicks(9640) },
-                    { 4, 150, 1, 4, new DateTime(2023, 9, 13, 23, 26, 19, 699, DateTimeKind.Local).AddTicks(9643) },
-                    { 5, 100, 2, 5, new DateTime(2023, 9, 13, 23, 26, 19, 699, DateTimeKind.Local).AddTicks(9646) },
-                    { 6, 200, 3, 6, new DateTime(2023, 9, 13, 23, 26, 19, 699, DateTimeKind.Local).AddTicks(9731) }
+                    { 1, 150, 1, 1, new DateTime(2023, 9, 13, 22, 46, 29, 378, DateTimeKind.Local).AddTicks(9627) },
+                    { 2, 100, 2, 2, new DateTime(2023, 9, 13, 22, 46, 29, 378, DateTimeKind.Local).AddTicks(9686) },
+                    { 3, 200, 3, 3, new DateTime(2023, 9, 13, 22, 46, 29, 378, DateTimeKind.Local).AddTicks(9688) },
+                    { 4, 150, 1, 4, new DateTime(2023, 9, 13, 22, 46, 29, 378, DateTimeKind.Local).AddTicks(9689) },
+                    { 5, 100, 2, 5, new DateTime(2023, 9, 13, 22, 46, 29, 378, DateTimeKind.Local).AddTicks(9691) },
+                    { 6, 200, 3, 6, new DateTime(2023, 9, 13, 22, 46, 29, 378, DateTimeKind.Local).AddTicks(9693) }
                 });
 
             migrationBuilder.CreateIndex(
